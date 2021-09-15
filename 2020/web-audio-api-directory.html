@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="狐妖i的博客">
+<meta name="twitter:description" content="不为失败找借口 只为成功找方法">
+<meta name="twitter:image:src" content="/images/avatar.jpg">
+
+<meta property="og:url" content="">
+<meta property="og:title" content="狐妖i的博客">
+<meta property="og:description" content="不为失败找借口 只为成功找方法">
+<meta property="og:site_name" content="狐妖i的博客">
+<meta property="og:image" content="/images/avatar.jpg">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="狐妖i的博客">
+<meta itemprop="description" content="不为失败找借口 只为成功找方法">
+<meta itemprop="image" content="/images/avatar.jpg">
+
+<link rel="canonical" href="">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
+
+        <meta name="keywords" content="前端,Web Audio API,">
+        <meta name="description" content="在网页中使用Audio API - 目录">
+        <meta name="author" content="狐妖i">
+        <title>在网页中使用Audio API - 目录</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.jpg" />
+    狐妖i的博客
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">在网页中使用Audio API - 目录</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.jpg);"></span>
+                    <a class="name" href="/about.me.html">狐妖i</a>
+                    
+                    <span class="date" data-time="1588476137"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/%e5%89%8d%e7%ab%af/index.html">前端</a><a class="tag" href="/tag/Web%20Audio%20API/index.html">Web Audio API</a></span>
+                </section>
+                <article class="content"><blockquote>
+<p>如果需要更详细说明的可以去 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/AudioContext">AudioContext - Web API 接口参考 | MDN</a> 毕竟我写的这些都是我自己理解</p>
+
+<p>目录在最下面 需要的可以从目录里的链接跳转</p>
+</blockquote>
+
+<p>这次怎么说呢,以前的时候写过一篇关于网页播放器中使用Audio API,但是感觉写的太烂了,现在想重写一个 XD</p>
+
+<blockquote>
+<p>Web Audio API使用户可以在音频上下文(AudioContext)中进行音频操作，具有模块化路由的特点。在音频节点上操作进行基础的音频， 它们连接在一起构成音频路由图。即使在单个上下文中也支持多源，尽管这些音频源具有多种不同类型通道布局。这种模块化设计提供了灵活创建动态效果的复合音频的方法。<br />
+&ndash;取自 MDN</p>
+</blockquote>
+
+<p>也就是说 我们就可以以节点的形式来通过Audio API来处理音频数据</p>
+
+<h2>目录</h2>
+
+<ul>
+<li><a href="/2020/web-audio-api-start.html">开始使用</a></li>
+<li><a href="/2020/web-audio-api-Oscillator.html">生成指定频率的波形</a></li>
+<li>滤波器 (简单的滤波器)</li>
+<li>混响效果 (线性卷积)</li>
+<li>延迟输出</li>
+<li>音频压缩 (压缩音频音量较高的部分避免发生削波和失真)</li>
+<li>音量调整 (音量大小)</li>
+<li>音量增益</li>
+<li>音频平衡 (音频偏左或偏右)</li>
+<li>失真效果 (非线性的畸变器)</li>
+<li>分离和合并通道 (左右声道的操作)</li>
+<li>音频分析与音频可视化</li>
+<li>声音空间效果</li>
+</ul>
+
+<p>之后会一个一个写完的,这个目录里的都会变蓝的 _(:з」∠)_</p>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.jpg);"></div>
+                    <a class="name" href="/about.me.html">狐妖i</a>
+                    <div class="intro">不为失败找借口 只为成功找方法</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/2020/web-audio-api-oscillator.html">在网页中使用Audio API - 生成指定频率的波形</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/2020/pixiv-dl-1.html">Pixiv单线程图片下载</a>
+                    </section>
+                    
+                </section>
+                
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        狐妖i的博客 ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

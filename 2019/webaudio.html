@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="狐妖i的博客">
+<meta name="twitter:description" content="不为失败找借口 只为成功找方法">
+<meta name="twitter:image:src" content="/images/avatar.jpg">
+
+<meta property="og:url" content="">
+<meta property="og:title" content="狐妖i的博客">
+<meta property="og:description" content="不为失败找借口 只为成功找方法">
+<meta property="og:site_name" content="狐妖i的博客">
+<meta property="og:image" content="/images/avatar.jpg">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="狐妖i的博客">
+<meta itemprop="description" content="不为失败找借口 只为成功找方法">
+<meta itemprop="image" content="/images/avatar.jpg">
+
+<link rel="canonical" href="">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
+
+        <meta name="keywords" content="前端,">
+        <meta name="description" content="在网页播放器使用audioAPI">
+        <meta name="author" content="狐妖i">
+        <title>在网页播放器使用audioAPI</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.jpg" />
+    狐妖i的博客
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">在网页播放器使用audioAPI</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.jpg);"></span>
+                    <a class="name" href="/about.me.html">狐妖i</a>
+                    
+                    <span class="date" data-time="1550995200"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/%e5%89%8d%e7%ab%af/index.html">前端</a></span>
+                </section>
+                <article class="content"><h2>在网页播放器使用audioAPI</h2>
+
+<blockquote>
+<p>可以使用谷歌浏览器书签功能实现执行js代码(当然你也可以是用其他方法执行js代码)</p>
+</blockquote>
+
+<p>看你要获取的是视频的还是音频的标签</p>
+
+<p>如果不能确定或者是没有id的标签:</p>
+
+<pre><code class="language-javascript">视频:var audio1=document.getElementsByTagName(&quot;video&quot;)[0]
+音频:var audio1=document.getElementsByTagName(&quot;audio&quot;)[0]
+</code></pre>
+
+<p>~~ 差不多吧</p>
+
+<p>然后创建audioAPI的家伙吧</p>
+
+<p><code>var audioctx = new (window.AudioContext || window.webkitAudioContext)();</code></p>
+
+<p>创建混响和基本的:</p>
+
+<pre><code class="language-javascript">var reverb = audioctx.createConvolver();
+var source = audioctx.createMediaElementSource(audio1);
+var gain=audioctx.createGain();
+</code></pre>
+
+<p>连接:</p>
+
+<pre><code class="language-javascript">source.connect(reverb);
+source.connect(gain);
+reverb.connect(audioctx.destination);
+gain.connect(audioctx.destination);`
+</code></pre>
+
+<p>参数:</p>
+
+<p><code>gain.gain.value=0.6;</code></p>
+
+<p>可以试着在混响里载入脉冲样本啦!</p>
+
+<pre><code class="language-javascript">var soundSource, concertHallBuffer;
+
+ajaxRequest = new XMLHttpRequest();
+ajaxRequest.open('GET', '脉冲样本的文件链接', true);
+ajaxRequest.responseType = 'arraybuffer';
+
+ajaxRequest.onload = function() {
+    var audioData = ajaxRequest.response;
+    audioctx.decodeAudioData(audioData, function(buffer) {
+        concertHallBuffer = buffer;
+        soundSource = audioctx.createBufferSource();
+        soundSource.buffer = concertHallBuffer;
+        reverb.buffer = concertHallBuffer;
+        console.log(&quot;成功载入混响样本!&quot;);
+    },function(e){console.log(&quot;错误!无法解码音频数据 错误为:&quot; + e.err)});
+};
+ajaxRequest.send();
+</code></pre>
+
+<p>这样就差不多啦!</p>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.jpg);"></div>
+                    <a class="name" href="/about.me.html">狐妖i</a>
+                    <div class="intro">不为失败找借口 只为成功找方法</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/2020/pixiv-dl-1.html">Pixiv单线程图片下载</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/2015/ink-blog-tool.html">简洁的静态博客构建工具 —— 纸小墨（InkPaper）</a>
+                    </section>
+                    
+                </section>
+                
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        狐妖i的博客 ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

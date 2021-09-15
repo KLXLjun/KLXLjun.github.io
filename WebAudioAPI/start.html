@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<audio controls="true" src="cloud_fx_AAC.m4a" preload="none"></audio>
+	</body>
+	<script>
+		//创建API
+		var audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+		//标签链接至API (audio标签或是video标签)
+		var source = audioCtx.createMediaElementSource(document.querySelector("audio"))
+		//链接到API输出
+		source.connect(audioCtx.destination);
+	</script>
+</html>

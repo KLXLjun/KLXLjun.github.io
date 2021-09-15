@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" value="440" id="Hz">
+		<select id="type">
+			<option selected="selected" value="sine">正弦波</option>
+			<option value="square">方波</option>
+			<option value="sawtooth">锯齿波</option>
+			<option value="triangle">三角波</option>
+		</select>
+		<button id="play">播放</button>
+		<button id="pause">暂停</button>
+	</body>
+	<script>
+		var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+		var oscillator = audioCtx.createOscillator();
+
+		oscillator.type = 'square';
+		oscillator.frequency.value = 440; // value in hertz
+		oscillator.connect(audioCtx.destination);
+		oscillator.start();
+		audioCtx.suspend();
+		
+		document.getElementById('play').addEventListener('click',function(e){
+			audioCtx.suspend();
+			oscillator.type = document.querySelectorAll('#type option')[document.getElementById('type').selectedIndex].value || 'sine';
+			oscillator.frequency.value = parseInt(document.getElementById('Hz').value) || 440;
+			audioCtx.resume();
+		});
+		
+		document.getElementById('pause').addEventListener('click',function(e){
+			audioCtx.suspend();
+		});
+	</script>
+</html>
