@@ -67,10 +67,9 @@
 </script>
 
 
-        <meta name="keywords" content="前端,Javascript,">
-        <meta name="description" content="lyricParsing - 歌词解析与显示">
-        <meta name="author" content="狐妖i">
-        <title>lyricParsing - 歌词解析与显示</title>
+        <meta name="keywords" content="不为失败找借口 只为成功找方法">
+        <meta name="description" content="不为失败找借口 只为成功找方法">
+        <title>狐妖i的博客</title>
     </head>
     <body>
         <article class="container">
@@ -86,85 +85,39 @@
   </ul>
 </header>
 
-            <article class="main article">
-                <h1 class="title">lyricParsing - 歌词解析与显示</h1>
-                <section class="info">
-                    <span class="avatar" style="background-image: url(/images/avatar.jpg);"></span>
-                    <a class="name" href="/about.me.html">狐妖i</a>
+            <article class="main page">
+                <header class="header site">
                     
-                    <span class="date" data-time="1591271671"><span class="from"></span></span>
+                        <img class="logo" src="/images/avatar.jpg" />
+                        <h1 class="tag">Golang</h1>
+                        <h2 class="tag-sub">1 篇文章</h2>
                     
-                    <span class="tags"><a class="tag" href="/tag/%e5%89%8d%e7%ab%af/index.html">前端</a><a class="tag" href="/tag/Javascript/index.html">Javascript</a></span>
-                </section>
-                <article class="content"><h1>lyricParsing</h1>
-
-<p>解析歌词
-使用canvas显示lrc歌词
-支持卡拉ok式(酷狗那种的lrc)歌词读取与显示</p>
-
-<blockquote>
-<p>如果有什么疑问请在github里新开一个issues!
-我的代码可能有些不规范XD 有修正请告诉我</p>
-</blockquote>
-
-<h2>链接</h2>
-
-<p><a href="https://klxljun.github.io/lyricParsing/index.html">演示</a>
-<a href="https://github.com/KLXLjun/lyricParsing">源代码</a></p>
-
-<h2>使用方法</h2>
-
-<p><del>这也写一个就是怕github太慢了</del></p>
-
-<p>先new一个</p>
-
-<pre><code class="language-javascript">var lrPar = new lyricParsing({
-    //音频标签
-    audio:document.getElementById(&quot;audios&quot;),
-    //画布标签
-    canvas:document.getElementById('canvas'),
-    //音频链接
-    audiourl:&quot;在这填入音频链接&quot;,
-    //歌词全局偏移值
-    offset:60,
-    //调试模式
-    debug:false,
-    //画布刷新时间(毫秒)
-    reftime:7,
-    //渲染字体
-    rander_font:&quot;32px Microsoft YaHei&quot;
-});
-</code></pre>
-
-<p>然后初始化</p>
-
-<pre><code class="language-javascript">lrPar.init(歌词字符串变量)
-</code></pre>
-
-<p>就能使用了
-其他的请看<a href="https://klxljun.github.io/lyricParsing/index.html">index.html</a>源码</p>
-</article>
-                <section class="author">
-                    <div class="avatar" style="background-image: url(/images/avatar.jpg);"></div>
-                    <a class="name" href="/about.me.html">狐妖i</a>
-                    <div class="intro">不为失败找借口 只为成功找方法</div>
-                </section>
-                <section class="recommend">
+                </header>
+                <ul class="article-list">
                     
-                    <section class="nav prev more">
-                        <div class="head">上篇文章</div>
-                        <a class="link" href="/2021/golang-cron.html">Golang - Cron包的使用</a>
-                    </section>
+                    <li class="article">
+                        <a class="title" href="/2021/golang-cron.html">Golang - Cron包的使用</a>
+                        <div class="cover" style="background-image:url(/images/golang/cron-5s-run.jpg);"></div>
+                        <section class="preview content"><p>使用Cron包来执行一些定时任务</p>
+</section>
+                        <section class="info">
+                            <span class="avatar" style="background-image: url(/images/avatar.jpg);"></span>
+                            <a class="name" href="/about.me.html">狐妖i</a>
+                            
+                            <span class="date" data-time="1631755254"><span class="from"></span></span>
+                            
+                            <span class="tags">
+                            <a class="tag" href="/tag/Golang/index.html">Golang</a>
+                            </span>
+                        </section>
+                    </li>
+                    
+                </ul>
+                <section class="page-nav">
                     
                     
-                    <section class="nav next more">
-                        <div class="head">下篇文章</div>
-                        <a class="link" href="/2020/web-audio-api-oscillator.html">在网页中使用Audio API - 生成指定频率的波形</a>
-                    </section>
                     
                 </section>
-                
-
             </article>
         </article>
         <footer class="footer">
@@ -177,6 +130,6 @@
     <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
 </footer>
 
-        <script src="/bundle/index.js"></script>
     </body>
+    <script src="/bundle/index.js"></script>
 </html>

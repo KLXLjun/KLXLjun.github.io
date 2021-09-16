@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="狐妖i的博客">
+<meta name="twitter:description" content="不为失败找借口 只为成功找方法">
+<meta name="twitter:image:src" content="/images/avatar.jpg">
+
+<meta property="og:url" content="">
+<meta property="og:title" content="狐妖i的博客">
+<meta property="og:description" content="不为失败找借口 只为成功找方法">
+<meta property="og:site_name" content="狐妖i的博客">
+<meta property="og:image" content="/images/avatar.jpg">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="狐妖i的博客">
+<meta itemprop="description" content="不为失败找借口 只为成功找方法">
+<meta itemprop="image" content="/images/avatar.jpg">
+
+<link rel="canonical" href="">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
+
+        <meta name="keywords" content="Golang,">
+        <meta name="description" content="Golang - Cron包的使用">
+        <meta name="author" content="狐妖i">
+        <title>Golang - Cron包的使用</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.jpg" />
+    狐妖i的博客
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">Golang - Cron包的使用</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.jpg);"></span>
+                    <a class="name" href="/about.me.html">狐妖i</a>
+                    
+                    <span class="date" data-time="1631755254"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/Golang/index.html">Golang</a></span>
+                </section>
+                <article class="content"><p>在某一些特定场景下可能需要定时执行一些任务(例如数据库备份,记录系统运行情况等等之类的任务),一般情况下可能都是使用Python或是Shell脚本来执行,不过使用Golang也是可行的</p>
+
+<p>Cron包的地址: <a href="https://github.com/robfig/cron/tree/v3">Cron - Github</a></p>
+
+<p>Cron包的文档: <a href="https://pkg.go.dev/github.com/robfig/cron/v3">Cron - go.dev</a></p>
+
+<blockquote>
+<p>注意:由于实例使用的v3版本并且使用了Go Modules,你的Go版本必须大于1.11!</p>
+</blockquote>
+
+<h1>例子</h1>
+
+<p>注册一个时间来执行你想用执行的函数,定时执行的函数将会以 goroutines 的形式运行</p>
+
+<pre><code class="language-golang">package main
+
+import (
+    &quot;log&quot;
+
+    &quot;github.com/robfig/cron/v3&quot;
+)
+
+func main() {
+    c := cron.New(cron.WithSeconds()) //创建一个cron的实例
+
+    //以实例创建一个定时任务
+    c.AddFunc(&quot;*/5 * * * * *&quot;, func() { log.Println(&quot;每分钟第五秒执行&quot;) })
+
+    //控制启动与关闭
+    c.Start()
+    defer c.Stop()
+    for {
+    }
+}
+</code></pre>
+
+<h1>Cron 时间设定参数</h1>
+
+<blockquote>
+<p>注意:由于V3默认是不带秒数的 如果需要秒 请在创建Cron实例时加上 cron.WithSeconds() (例如 c := cron.New(cron.WithSeconds())) 否则请忽略掉下面表格中的秒</p>
+
+<p>此篇文章内所有实例均带秒</p>
+</blockquote>
+
+<p>Cron表达式表示的一组时间 使用六个字段 [* * * * * *]</p>
+
+<table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th>允许的值</th>
+<th>允许的特殊字符</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>秒</td>
+<td>0-59</td>
+<td>* / , -</td>
+</tr>
+
+<tr>
+<td>分钟</td>
+<td>0-59</td>
+<td>* / , -</td>
+</tr>
+
+<tr>
+<td>小时</td>
+<td>0-23</td>
+<td>* / , -</td>
+</tr>
+
+<tr>
+<td>天</td>
+<td>1-31</td>
+<td>* / , - ?</td>
+</tr>
+
+<tr>
+<td>月份</td>
+<td>1-12 or JAN-DEC</td>
+<td>* / , -</td>
+</tr>
+
+<tr>
+<td>星期几</td>
+<td>0-6 or SUN-SAT</td>
+<td>* / , - ?</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>说明:月份与星期几内值不区分大小写,&ldquo;SUN&rdquo;, &ldquo;Sun&rdquo; 与 &ldquo;sun&rdquo; 均可以使用</p>
+</blockquote>
+
+<h2>特殊字符</h2>
+
+<h3>星号 (*)</h3>
+
+<p>将匹配允许值范围内的所有值.例如表达式是(&rdquo;* 5 * * * *&ldquo;) 那么代表每个小时的第五分钟内的每秒都会执行你指定的函数</p>
+
+<h3>斜杠 (/)</h3>
+
+<p>斜杠代表允许值的增量.例如表达式是(&ldquo;3-<sup>59</sup>&frasl;<sub>15</sub> * * * * *&ldquo;) (我这里用的文档里的例子) 那么代表每分钟的第三秒和从第三秒开始往后的每15秒钟(直到第59秒结束)都会执行.</p>
+
+<p>再举个例子,例如表达式为 (&ldquo;<sup>5</sup>&frasl;<sub>15</sub> * * * * *&ldquo;) 那么每一分钟的第5秒和以5秒开始往后的每15秒执行一次 (就是每分钟内的第5,20,35,50秒都会执行)</p>
+
+<h3>逗号 (,)</h3>
+
+<p>分割列表中的项目. 例如表达式为 (&rdquo;* * * * * MON,WED,FRI&rdquo;) 则代表每个星期的星期一、星期三和星期五都会执行你指定的函数</p>
+
+<h3>横杠 (-)</h3>
+
+<p>用于定义一个范围内(但必须在允许值范围内). 例如表达式为 (&ldquo;35-55 * * * * *&ldquo;) 那么在每分钟的第35到55秒内的每秒都会执行你指定的函数</p>
+
+<h3>问号 (?)</h3>
+
+<p>可以使用?代替*代表月份中某一天或者某一个星期空白 (我自己不是太懂这个意思 XD)</p>
+
+<h3>时区</h3>
+
+<p>在默认的情况下,使用的时区是使用本地(就是你自己的电脑)的时区,你可以在创建实例时指定不同的时区</p>
+
+<pre><code class="language-golang">//UTC
+cron.New(
+    cron.WithLocation(time.UTC))
+</code></pre>
+
+<p>可以单独设置每一个 cron 计划的时区,通过在开头提供额外的空格分隔字段来解释，格式为&rdquo;CRON_TZ=(TIME ZONE)&rdquo; (例如 CRON_TZ=Asia/Tokyo ) (还支持使用前缀&rdquo;TZ=(TIME ZONE)&ldquo;以实现旧版兼容性)
+&gt; 在夏令时跨越式过渡期间安排的作业将不会运行 (原文为&rdquo;Be aware that jobs scheduled during daylight-savings leap-ahead transitions will not be run&rdquo;,如有说错请告诉我x)</p>
+
+<p>例子:</p>
+
+<pre><code class="language-golang">c.AddFunc(&quot;CRON_TZ=Asia/Tokyo * * 6 * * *&quot;, func() { log.Println(&quot;在东京时间的早上6点执行&quot;) })
+</code></pre>
+
+<h1>删除已创建的计划</h1>
+
+<p>在向实例执行AddFunc函数时,返回的第一个参数是一个计划的ID 可以使用这个ID删除计划</p>
+
+<p>例子:</p>
+
+<pre><code class="language-golang">package main
+
+import (
+    &quot;log&quot;
+
+    &quot;github.com/robfig/cron/v3&quot;
+)
+
+func main() {
+    c := cron.New(cron.WithSeconds()) //创建一个cron的实例
+
+    //以实例创建一个定时任务
+    EntryID, err :=c.AddFunc(&quot;*/5 * * * * *&quot;, func() { log.Println(&quot;每分钟第五秒执行&quot;) })
+    if err != nil {
+        log.Println(err)
+    }
+
+    //删除刚刚创建的定时任务
+    c.Remove(EntryID)
+
+    //控制启动与关闭
+    c.Start()
+    defer c.Stop()
+    for {
+    }
+}
+</code></pre>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.jpg);"></div>
+                    <a class="name" href="/about.me.html">狐妖i</a>
+                    <div class="intro">不为失败找借口 只为成功找方法</div>
+                </section>
+                <section class="recommend">
+                    
+                    
+                    <section class="nav next">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/2020/lyricparsing.html">lyricParsing - 歌词解析与显示</a>
+                    </section>
+                    
+                </section>
+                
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        狐妖i的博客 ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>
