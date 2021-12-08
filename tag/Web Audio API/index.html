@@ -44,28 +44,6 @@
     var root = '';
 </script>
 
-<script type="text/javascript">
-    var conn, reloadTimer, connectTimer;
-    var connect = function() {
-        conn = new WebSocket('ws://' + location.host + '/live');
-        conn.onmessage = function(event) {
-            if (event.data === 'change') {
-                if (reloadTimer) clearTimeout(reloadTimer);
-                reloadTimer = setTimeout(function() {
-                    window.location.reload();
-                }, 200);
-            }
-        };
-        conn.onclose = function() {
-            if (connectTimer) clearTimeout(connectTimer);
-            connectTimer = setTimeout(function() {
-                connect();
-            }, 1000);
-        };
-    };
-    connect();
-</script>
-
 
         <meta name="keywords" content="不为失败找借口 只为成功找方法">
         <meta name="description" content="不为失败找借口 只为成功找方法">
@@ -90,10 +68,27 @@
                     
                         <img class="logo" src="/images/avatar.jpg" />
                         <h1 class="tag">Web Audio API</h1>
-                        <h2 class="tag-sub">3 篇文章</h2>
+                        <h2 class="tag-sub">4 篇文章</h2>
                     
                 </header>
                 <ul class="article-list">
+                    
+                    <li class="article">
+                        <a class="title" href="/2021/web-audio-api-biquadfilternode.html">在网页中使用Audio API - 滤波器</a>
+                        <div class="cover" style="background-image:url(/images/example.png);"></div>
+                        <section class="preview content"><p>在网页中使用Audio API - 滤波器</p>
+</section>
+                        <section class="info">
+                            <span class="avatar" style="background-image: url(/images/avatar.jpg);"></span>
+                            <a class="name" href="/about.me.html">狐妖i</a>
+                            
+                            <span class="date" data-time="1638951017"><span class="from"></span></span>
+                            
+                            <span class="tags">
+                            <a class="tag" href="/tag/%e5%89%8d%e7%ab%af/index.html">前端</a><a class="tag" href="/tag/Web%20Audio%20API/index.html">Web Audio API</a>
+                            </span>
+                        </section>
+                    </li>
                     
                     <li class="article">
                         <a class="title" href="/2020/web-audio-api-oscillator.html">在网页中使用Audio API - 生成指定频率的波形</a>

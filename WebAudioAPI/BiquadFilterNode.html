@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<audio src="阿良良木健_洛天依_CONNECT_AAC.m4a" controls preload="none"></audio>
+		<br>
+		滤波器类型:
+		<select id="btype">
+			<option selected="selected" value="lowpass">低通</option>
+			<option value="highpass">高通</option>
+			<option value="bandpass">带通</option>
+			<option value="lowshelf">低架</option>
+			<option value="highshelf">高架</option>
+			<option value="peaking">峰值</option>
+			<option value="notch">陷波(带阻)</option>
+			<option value="allpass">全通</option>
+		</select>
+		<p>频率:<input type="number" value="1000" id="Hz"></p>
+		<p>Q因子:<input type="number" value="1" id="Q"></p>
+		<p>增益值:<input type="number" value="0" id="Gain"></p>
+	</body>
+	<script>
+		var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+		var source = audioCtx.createMediaElementSource(document.querySelector("audio"));
+		var biquadFilter = audioCtx.createBiquadFilter();
+
+		source.connect(biquadFilter);
+		biquadFilter.connect(audioCtx.destination);
+
+		document.getElementById("btype").addEventListener('change',function(e){
+			biquadFilter.type = document.querySelectorAll('#btype option')[document.getElementById('btype').selectedIndex].value;
+		});
+
+		document.getElementById("Hz").addEventListener('input',function(e){
+			biquadFilter.frequency.value = parseInt(document.getElementById('Hz').value) || 1000;
+		});
+
+		document.getElementById("Q").addEventListener('input',function(e){
+			biquadFilter.Q.value = parseInt(document.getElementById('Q').value) || 1;
+		});
+
+		document.getElementById("Gain").addEventListener('input',function(e){
+			biquadFilter.gain.value = parseInt(document.getElementById('Gain').value) || 0;
+		});
+	</script>
+</html>

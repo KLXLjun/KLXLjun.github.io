@@ -44,28 +44,6 @@
     var root = '';
 </script>
 
-<script type="text/javascript">
-    var conn, reloadTimer, connectTimer;
-    var connect = function() {
-        conn = new WebSocket('ws://' + location.host + '/live');
-        conn.onmessage = function(event) {
-            if (event.data === 'change') {
-                if (reloadTimer) clearTimeout(reloadTimer);
-                reloadTimer = setTimeout(function() {
-                    window.location.reload();
-                }, 200);
-            }
-        };
-        conn.onclose = function() {
-            if (connectTimer) clearTimeout(connectTimer);
-            connectTimer = setTimeout(function() {
-                connect();
-            }, 1000);
-        };
-    };
-    connect();
-</script>
-
 
         <meta name="keywords" content="前端,Web Audio API,">
         <meta name="description" content="在网页中使用Audio API - 生成指定频率的波形">
@@ -124,64 +102,7 @@
 
 <p>代表了音高微调(单位是音分),默认值是0.</p>
 
-<h2>代码示例</h2>
-
-<h3>HTML</h3>
-
-<pre><code class="language-html">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;meta charset=&quot;utf-8&quot;&gt;
-        &lt;title&gt;&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;input type=&quot;text&quot; value=&quot;440&quot; id=&quot;Hz&quot;&gt;
-        &lt;select id=&quot;type&quot;&gt;
-            &lt;option selected=&quot;selected&quot; value=&quot;sine&quot;&gt;正弦波&lt;/option&gt;
-            &lt;option value=&quot;square&quot;&gt;方波&lt;/option&gt;
-            &lt;option value=&quot;sawtooth&quot;&gt;锯齿波&lt;/option&gt;
-            &lt;option value=&quot;triangle&quot;&gt;三角波&lt;/option&gt;
-        &lt;/select&gt;
-        &lt;button id=&quot;play&quot;&gt;播放&lt;/button&gt;
-        &lt;button id=&quot;pause&quot;&gt;暂停&lt;/button&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-
-<h3>JavaScript</h3>
-
-<pre><code class="language-javascript">//创建API
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-var oscillator = audioCtx.createOscillator();
-
-oscillator.type = 'square';                 //波形的形状
-oscillator.frequency.value = 440;           //频率
-oscillator.connect(audioCtx.destination);   //连接输出
-oscillator.start();                         //播放
-audioCtx.suspend();                         //暂停播放api
-
-//绑定播放按钮的单击事件
-document.getElementById('play').addEventListener('click',function(e){
-    //暂停播放
-    audioCtx.suspend();
-
-    //获取下拉选择的波形
-    oscillator.type = document.querySelectorAll('#type option')[document.getElementById('type').selectedIndex].value || 'sine';
-
-    //频率
-    oscillator.frequency.value = parseInt(document.getElementById('Hz').value);
-
-    //继续播放
-    audioCtx.resume();
-});
-
-//绑定暂停按钮的单击事件
-document.getElementById('pause').addEventListener('click',function(e){
-    audioCtx.suspend();
-});
-</code></pre>
-
-<h3>演示 <a href="/WebAudioAPI/Oscillator.html">查看源码</a></h3>
+<h3>演示 <a href="/WebAudioAPI/Oscillator.html">在新页面打开</a> (没有声音?请在网站设置中将该网站声音权限设置为允许)</h3>
 
 <iframe src="/WebAudioAPI/Oscillator.html" style="width: 100%;border: 1px solid rgba(1,1,1,0.15);"></iframe>
 </article>

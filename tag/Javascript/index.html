@@ -44,28 +44,6 @@
     var root = '';
 </script>
 
-<script type="text/javascript">
-    var conn, reloadTimer, connectTimer;
-    var connect = function() {
-        conn = new WebSocket('ws://' + location.host + '/live');
-        conn.onmessage = function(event) {
-            if (event.data === 'change') {
-                if (reloadTimer) clearTimeout(reloadTimer);
-                reloadTimer = setTimeout(function() {
-                    window.location.reload();
-                }, 200);
-            }
-        };
-        conn.onclose = function() {
-            if (connectTimer) clearTimeout(connectTimer);
-            connectTimer = setTimeout(function() {
-                connect();
-            }, 1000);
-        };
-    };
-    connect();
-</script>
-
 
         <meta name="keywords" content="不为失败找借口 只为成功找方法">
         <meta name="description" content="不为失败找借口 只为成功找方法">
@@ -97,7 +75,7 @@
                     
                     <li class="article">
                         <a class="title" href="/2020/lyricparsing.html">lyricParsing - 歌词解析与显示</a>
-                        <div class="cover" style="background-image:url(https://hygitshare.oss-cn-chengdu.aliyuncs.com/picture/Snipaste_2020-06-04_19-58-43.png);"></div>
+                        <div class="cover" style="background-image:url(/images/javascript/v2-375b7d4192b0467b59893033725c95a5_r.png);"></div>
                         <section class="preview content"><p>lyricParsing - 歌词解析与显示</p>
 </section>
                         <section class="info">

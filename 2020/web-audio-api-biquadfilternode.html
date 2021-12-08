@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="狐妖i的博客">
+<meta name="twitter:description" content="不为失败找借口 只为成功找方法">
+<meta name="twitter:image:src" content="/images/avatar.jpg">
+
+<meta property="og:url" content="">
+<meta property="og:title" content="狐妖i的博客">
+<meta property="og:description" content="不为失败找借口 只为成功找方法">
+<meta property="og:site_name" content="狐妖i的博客">
+<meta property="og:image" content="/images/avatar.jpg">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="狐妖i的博客">
+<meta itemprop="description" content="不为失败找借口 只为成功找方法">
+<meta itemprop="image" content="/images/avatar.jpg">
+
+<link rel="canonical" href="">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
+
+        <meta name="keywords" content="前端,Web Audio API,">
+        <meta name="description" content="在网页中使用Audio API - 滤波器">
+        <meta name="author" content="狐妖i">
+        <title>在网页中使用Audio API - 滤波器</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.jpg" />
+    狐妖i的博客
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">在网页中使用Audio API - 滤波器</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.jpg);"></span>
+                    <a class="name" href="/about.me.html">狐妖i</a>
+                    
+                    <span class="date" data-time="1589209577"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/%e5%89%8d%e7%ab%af/index.html">前端</a><a class="tag" href="/tag/Web%20Audio%20API/index.html">Web Audio API</a></span>
+                </section>
+                <article class="content"><p>BiquadFilter 节点可以实现一个简单的低阶滤波器</p>
+
+<h2>说明</h2>
+
+<p>这个节点拥有一个输入和输出,一个节点可以设置很多不同的滤波效果,例如让某段频率以下的声音通过什么的(低通).</p>
+
+<h2>属性</h2>
+
+<hr />
+
+<blockquote>
+<p>BiquadFilterNode.frequency
+类型是双精度浮点</p>
+</blockquote>
+
+<p>当前滤波算法中以赫兹(Hz)为单位测量的频率的双精度浮点值。</p>
+
+<blockquote>
+<p>BiquadFilterNode.detune
+类型为整数</p>
+</blockquote>
+
+<p>频率失谐值</p>
+
+<blockquote>
+<p>BiquadFilterNode.Q
+类型为双精度浮点</p>
+</blockquote>
+
+<p>Q因子，或质量因子。</p>
+
+<blockquote>
+<p>BiquadFilterNode.gain
+类型为整数</p>
+</blockquote>
+
+<p>在当前的过滤算法中使用.当它取正值时,即为增益，当它取负值时，即为衰减,以分贝(dB)为单位,范围为 -40 至 40.</p>
+
+<blockquote>
+<p>BiquadFilterNode.type
+类型是字符串</p>
+</blockquote>
+
+<p>这个属性决定了滤波器的效果.能使用的值在下列表格.除第一列以外都是对应节点的属性的描述 (给定的频率是指frequency.value)</p>
+
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>描述</th>
+<th>frequency</th>
+<th>Q</th>
+<th>gain</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>lowpass</td>
+<td>具有12dB/倍频程衰减的标准二阶谐振低通滤波器.给定频率以下的频率通过,高于它的频率会衰减.</td>
+<td>给定频率</td>
+<td>指示频率在截止频率附近的峰值。 该值越大，峰值越大。</td>
+<td>未使用</td>
+</tr>
+
+<tr>
+<td>highpass</td>
+<td>具有12dB/倍频程衰减的标准二阶谐振高通滤波器,给定频率以下的频率衰减,高于它的频率通过.</td>
+<td>给定频率</td>
+<td>指示频率在截止频率附近的峰值。 该值越大，峰值越大。</td>
+<td>未使用</td>
+</tr>
+
+<tr>
+<td>bandpass</td>
+<td>标准二阶带通滤波器.给定频率范围之外的频率被衰减,范围内的频率通过</td>
+<td>频率范围内的中心</td>
+<td>控制频带的宽度。Q值越大，频带越小。</td>
+<td>未使用</td>
+</tr>
+
+<tr>
+<td>lowshelf</td>
+<td>标准二阶低架滤波器.低于给定频率的频率得到提升或衰减,高于给定频率上的频率不变.</td>
+<td>该频率以上获得提升或衰减</td>
+<td>未使用</td>
+<td>要应用的增强(正数)或衰减(负数)，以分贝(dB)为单位；</td>
+</tr>
+
+<tr>
+<td>highshelf</td>
+<td>标准二阶高架滤波器.高于给定频率的频率得到提升或衰减,低于给定的频率的频率不变.</td>
+<td>该频率以下获得提升或衰减</td>
+<td>未使用</td>
+<td>要应用的增强(正数)或衰减(负数)，以分贝(dB)为单位；</td>
+</tr>
+
+<tr>
+<td>peaking</td>
+<td>给定频率的范围内的频率得到提升或衰减,给定频率的范围之外的频率不变.</td>
+<td>频率范围内的频率得到增强或衰减</td>
+<td>控制频带的宽度。Q值越大，频带越小。</td>
+<td>要应用的增强(正数)或衰减(负数)，以分贝(dB)为单位；</td>
+</tr>
+
+<tr>
+<td>notch</td>
+<td>标准陷波滤波器,也称为带阻或带阻滤波器.它的效果与带通滤波器相反:给定频率范围之外的频率通过,内部的频率被衰减.</td>
+<td>频率范围内的中心</td>
+<td>控制频带的宽度。Q值越大，频带越小。</td>
+<td>未使用</td>
+</tr>
+
+<tr>
+<td>allpass</td>
+<td>标准二阶全通滤波器.它让所有频率通过，但会改变不同频率之间的相位关系.</td>
+<td>频率最大组延迟，即发生相变中心的频率.</td>
+<td>控制过渡在中频的锐度。该参数越大，过渡越锐利越大。</td>
+<td>未使用</td>
+</tr>
+</tbody>
+</table>
+
+<h3>演示 <a href="/WebAudioAPI/BiquadFilterNode.html">查看源码</a> (没有声音?请在网站设置中将该网站声音权限设置为允许)</h3>
+
+<iframe src="/WebAudioAPI/BiquadFilterNode.html" style="width: 100%;height: 260px;border: 1px solid rgba(1,1,1,0.15);"></iframe>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.jpg);"></div>
+                    <a class="name" href="/about.me.html">狐妖i</a>
+                    <div class="intro">不为失败找借口 只为成功找方法</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/2020/web-audio-api-start.html">在网页中使用Audio API - 开始使用</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/2020/web-audio-api-directory.html">在网页中使用Audio API - 目录</a>
+                    </section>
+                    
+                </section>
+                
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        狐妖i的博客 ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

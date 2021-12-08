@@ -44,28 +44,6 @@
     var root = '';
 </script>
 
-<script type="text/javascript">
-    var conn, reloadTimer, connectTimer;
-    var connect = function() {
-        conn = new WebSocket('ws://' + location.host + '/live');
-        conn.onmessage = function(event) {
-            if (event.data === 'change') {
-                if (reloadTimer) clearTimeout(reloadTimer);
-                reloadTimer = setTimeout(function() {
-                    window.location.reload();
-                }, 200);
-            }
-        };
-        conn.onclose = function() {
-            if (connectTimer) clearTimeout(connectTimer);
-            connectTimer = setTimeout(function() {
-                connect();
-            }, 1000);
-        };
-    };
-    connect();
-</script>
-
 
         <meta name="keywords" content="前端,Web Audio API,">
         <meta name="description" content="在网页中使用Audio API - 开始使用">
@@ -124,7 +102,7 @@ var source = audioCtx.createMediaElementSource(document.querySelector(&quot;audi
 source.connect(audioCtx.destination);
 </code></pre>
 
-<h3>演示 <a href="/WebAudioAPI/start.html">查看源码</a></h3>
+<h3>演示 <a href="/WebAudioAPI/start.html">在新页面打开</a> (没有声音?请在网站设置中将该网站声音权限设置为允许)</h3>
 
 <iframe src="/WebAudioAPI/start.html" style="width: 100%;border: 1px solid rgba(1,1,1,0.15);"></iframe>
 </article>

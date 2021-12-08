@@ -44,28 +44,6 @@
     var root = '';
 </script>
 
-<script type="text/javascript">
-    var conn, reloadTimer, connectTimer;
-    var connect = function() {
-        conn = new WebSocket('ws://' + location.host + '/live');
-        conn.onmessage = function(event) {
-            if (event.data === 'change') {
-                if (reloadTimer) clearTimeout(reloadTimer);
-                reloadTimer = setTimeout(function() {
-                    window.location.reload();
-                }, 200);
-            }
-        };
-        conn.onclose = function() {
-            if (connectTimer) clearTimeout(connectTimer);
-            connectTimer = setTimeout(function() {
-                connect();
-            }, 1000);
-        };
-    };
-    connect();
-</script>
-
 
         <meta name="keywords" content="前端,Web Audio API,">
         <meta name="description" content="在网页中使用Audio API - 目录">
@@ -116,7 +94,7 @@
 <ul>
 <li><a href="/2020/web-audio-api-start.html">开始使用</a></li>
 <li><a href="/2020/web-audio-api-Oscillator.html">生成指定频率的波形</a></li>
-<li>滤波器 (简单的滤波器)</li>
+<li><a href="/2021/web-audio-api-biquadfilternode.html">滤波器 (简单的滤波器)</a></li>
 <li>混响效果 (线性卷积)</li>
 <li>延迟输出</li>
 <li>音频压缩 (压缩音频音量较高的部分避免发生削波和失真)</li>
@@ -130,6 +108,10 @@
 </ul>
 
 <p>之后会一个一个写完的,这个目录里的所有链接都会变绿的 <em>(:з」∠)</em></p>
+
+<blockquote>
+<p>实例里使用的音频: <a href="http://music.163.com/song?id=28828055">CONNECT</a> {来自:阿良良木健/洛天依}</p>
+</blockquote>
 </article>
                 <section class="author">
                     <div class="avatar" style="background-image: url(/images/avatar.jpg);"></div>
